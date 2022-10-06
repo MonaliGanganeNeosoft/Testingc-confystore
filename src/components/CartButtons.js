@@ -10,6 +10,8 @@ const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
   const { total_items, clearCart } = useCartContext();
   const { loginWithRedirect, myUser, logout } = useUserContext();
+  console.log(myUser);
+  //  const { user, isAuthenticated, isLoading } = useAuth0();
 
   return (
     <Wrapper className="cart-btn-wrapper">
@@ -34,17 +36,22 @@ const CartButtons = () => {
         </button>
       )} */}
       {myUser ? (
-        <button
-          type="button"
-          className="auth-btn"
-          onClick={() => {
-            clearCart();
-            localStorage.removeItem("user");
-            logout({ returnTo: window.location.origin });
-          }}
-        >
-          Logout <FaUserMinus />
-        </button>
+        <>
+          <button
+            type="button"
+            className="auth-btn"
+            onClick={() => {
+              clearCart();
+              localStorage.removeItem("user");
+              logout({ returnTo: window.location.origin });
+            }}
+          >
+            {/* {myUser.name} */}
+            <span style={{ padding: "20px" }}>{myUser.nickname}</span>
+            Logout <FaUserMinus />
+          </button>
+          {/* <button> {myUser.nickname}</button> */}
+        </>
       ) : (
         <button type="button" className="auth-btn" onClick={loginWithRedirect}>
           Login <FaUserPlus />
